@@ -23,13 +23,21 @@ The following **additional** features are implemented:
 
 * [ ] List anything else that you can get done to improve the app functionality!
 
-## Video Walkthrough
+## App Walkthrough
 
-Here's a walkthrough of implemented user stories:
+Here's a walkthrough of the SimpleToDo Task App:
 
-<img src='add.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+## Adding Tasks
+<img src='add.gif' title='Adding Tasks' width='' alt='Adding Tasks' />
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
+## Removing Tasks
+<img src='Remove.gif' title='Removing Tasks' width='' alt='Removing Tasks' />
+
+## App State Persists
+<img src='Persist.gif' title='App State Persists' width='' alt='App State Persists' />
+
+
+GIF created with Gyazo.
 
 ## Notes
 

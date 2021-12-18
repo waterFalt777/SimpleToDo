@@ -1,8 +1,10 @@
 package com.example.simpletodo
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +20,38 @@ class MainActivity : AppCompatActivity() {
     var listOfTasks = mutableListOf<String>()
     lateinit var adapter: TaskItemAdapter
 
+    fun onClickNext(view:View) {
+        val i = Intent(this,EditTask::class.java)
+        startActivity(i)
+    }
+
+    /**
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val onLongClickListener = object: TaskItemAdapter.OnLongClickListener{
+            override fun onItemLongClicked(position: Int) {
+                //1.Remove item from list
+                listOfTasks.removeAt(position)
+                //2.When data set has changed, notify the adapter
+                adapter.notifyDataSetChanged()
+
+                saveItems()
+            }
+        }
+
+        // Leveraging ItemClickSupport decorator to handle clicks on items in our recyclerView
+        ItemClickSupport.addTo(rvPosts).setOnItemClickListener { recyclerView, position, v ->
+            Log.i("TASK CLICK", "Ready to edit not to be removed")
+            val i = Intent(this,EditTask::class.java)
+            startActivity(i)
+        }
+    }
+
+    // ...*/
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,8 +65,21 @@ class MainActivity : AppCompatActivity() {
 
                 saveItems()
             }
-
         }
+        /**
+        val onClickListener = object: TaskItemAdapter.OnClickListener{
+            override fun onItemClicked(position: Int) {
+                Log.i("TASK CLICK", "Ready to edit not to be removed")
+
+                //call the intent fun?
+                //1.Edit item from list
+                //val i = Intent(this,EditTask::class.java)
+                //startActivity(i)
+                //saveItems()
+            }*/
+
+
+
 
 //        //1. Detect when user clicks on add button
 //        findViewById<Button>(R.id.button).setOnClickListener {
@@ -42,6 +89,8 @@ class MainActivity : AppCompatActivity() {
 //        listOfTasks.add("Do laundry")
 //        listOfTasks.add("Go for a walk")
 //        listOfTasks.add("Karaoke in the Park")
+
+
 
         loadItems()
 
@@ -58,7 +107,6 @@ class MainActivity : AppCompatActivity() {
         /**When the user enters a task, have the text(input) and button field set up
          * so the task can be added to the list
          */
-
         val inputTextField = findViewById<EditText>(R.id.addTaskField)
 
         //Get button reference
@@ -76,12 +124,18 @@ class MainActivity : AppCompatActivity() {
             inputTextField.setText("")
 
             saveItems()
+
         }
 
 
 
 
+
+
     }
+
+
+
 
     //Save user's data
     //From the file, read and write the data to save it
@@ -99,16 +153,19 @@ class MainActivity : AppCompatActivity() {
         }catch(ioException: IOException){
             ioException.printStackTrace()
 
-        }
-
+       }
 
     }
+
     //Write the items into data file to save
-    fun saveItems(){
-        try{
-            FileUtils.writeLines(getDataFile(),listOfTasks)
-        }catch (ioException: IOException){
+    fun saveItems() {
+        try {
+            FileUtils.writeLines(getDataFile(), listOfTasks)
+        } catch (ioException: IOException) {
             ioException.printStackTrace()
         }
+
     }
+
+
 }

@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -11,16 +12,23 @@ import androidx.recyclerview.widget.RecyclerView
  * A bridge that scripts the recycler how to
  * display the data we provide with it
  */
-
-class TaskItemAdapter(val listOfItems: List<String>,val longClickListener: OnLongClickListener):
+class TaskItemAdapter(val listOfItems: List<String>,val longClickListener: OnLongClickListener)://, val ClickListener: OnClickListener):
 
     RecyclerView.Adapter<TaskItemAdapter.ViewHolder>() {
 
     interface OnLongClickListener{
         fun onItemLongClicked(position: Int)
+        }
 
+
+
+    /**
+    interface OnClickListener {
+        fun onItemClicked(position: Int)
 
     }
+    */
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
@@ -54,6 +62,13 @@ class TaskItemAdapter(val listOfItems: List<String>,val longClickListener: OnLon
                 longClickListener.onItemLongClicked(adapterPosition)
                 true
             }
+
+            /**
+
+            itemView.setOnClickListener{
+                ClickListener.onItemClicked(adapterPosition)
+                true
+            }*/
         }
 
 

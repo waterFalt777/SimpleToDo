@@ -1,18 +1,18 @@
 package com.example.simpletodo
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+//import com.example.simpletodo.TaskItemAdapter.OnClickListener
 import org.apache.commons.io.FileUtils
 import java.io.File
 import java.io.IOException
 import java.nio.charset.Charset
+import android.content.Intent as Intent
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,42 +20,25 @@ class MainActivity : AppCompatActivity() {
     var listOfTasks = mutableListOf<String>()
     lateinit var adapter: TaskItemAdapter
 
-    fun onClickNext(view:View) {
+
+
+    fun onClickNext(position: Int) { //view:View
         val i = Intent(this,EditTask::class.java)
+        //i.putExtra("position", position)
         startActivity(i)
     }
-
-    /**
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        val onLongClickListener = object: TaskItemAdapter.OnLongClickListener{
-            override fun onItemLongClicked(position: Int) {
-                //1.Remove item from list
-                listOfTasks.removeAt(position)
-                //2.When data set has changed, notify the adapter
-                adapter.notifyDataSetChanged()
-
-                saveItems()
-            }
-        }
-
-        // Leveraging ItemClickSupport decorator to handle clicks on items in our recyclerView
-        ItemClickSupport.addTo(rvPosts).setOnItemClickListener { recyclerView, position, v ->
-            Log.i("TASK CLICK", "Ready to edit not to be removed")
-            val i = Intent(this,EditTask::class.java)
-            startActivity(i)
-        }
-    }
-
-    // ...*/
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val onClickListener = object: TaskItemAdapter.OnClickListener{
+            override fun onItemClicked(position: Int) {
+                onClickNext(position);
+            }
+        }
+
         val onLongClickListener = object: TaskItemAdapter.OnLongClickListener{
             override fun onItemLongClicked(position: Int) {
                 //1.Remove item from list
@@ -65,18 +48,14 @@ class MainActivity : AppCompatActivity() {
 
                 saveItems()
             }
-        }
-        /**
-        val onClickListener = object: TaskItemAdapter.OnClickListener{
-            override fun onItemClicked(position: Int) {
-                Log.i("TASK CLICK", "Ready to edit not to be removed")
 
-                //call the intent fun?
-                //1.Edit item from list
-                //val i = Intent(this,EditTask::class.java)
-                //startActivity(i)
-                //saveItems()
-            }*/
+        }
+
+
+
+
+
+
 
 
 
@@ -97,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         //Look up recycler View in layout
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         //Create adapter passing in sample user data
-        adapter = TaskItemAdapter(listOfTasks,onLongClickListener)
+        adapter = TaskItemAdapter(listOfTasks,onLongClickListener,onClickListener)
         //Attach adapter to recycler view to populate items
         recyclerView.adapter = adapter
         // Set layout manager to position the items

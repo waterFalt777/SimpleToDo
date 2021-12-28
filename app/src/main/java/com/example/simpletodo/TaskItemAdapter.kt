@@ -1,5 +1,6 @@
 package com.example.simpletodo
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,25 +13,28 @@ import androidx.recyclerview.widget.RecyclerView
  * A bridge that scripts the recycler how to
  * display the data we provide with it
  */
-class TaskItemAdapter(val listOfItems: List<String>,val longClickListener: OnLongClickListener)://, val ClickListener: OnClickListener):
+class TaskItemAdapter(val listOfItems: List<String>,val longClickListener: OnLongClickListener, val ClickListener: OnClickListener):
+
+
 
     RecyclerView.Adapter<TaskItemAdapter.ViewHolder>() {
+
+
 
     interface OnLongClickListener{
         fun onItemLongClicked(position: Int)
         }
 
-
-
-    /**
-    interface OnClickListener {
+    interface OnClickListener{
         fun onItemClicked(position: Int)
-
     }
-    */
+
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
+
         val inflater = LayoutInflater.from(context)
         // Inflate the custom layout
         val contactView = inflater.inflate(android.R.layout.simple_list_item_1, parent, false)
@@ -45,7 +49,7 @@ class TaskItemAdapter(val listOfItems: List<String>,val longClickListener: OnLon
         holder.textView.text = item
     }
 
-    override fun getItemCount(): Int {
+     override fun getItemCount(): Int {
         return listOfItems.size
     }
 
@@ -63,14 +67,14 @@ class TaskItemAdapter(val listOfItems: List<String>,val longClickListener: OnLon
                 true
             }
 
-            /**
 
             itemView.setOnClickListener{
                 ClickListener.onItemClicked(adapterPosition)
                 true
-            }*/
+            }
         }
 
 
     }
+
 }

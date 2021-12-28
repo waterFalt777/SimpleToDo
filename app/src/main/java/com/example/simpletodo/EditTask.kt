@@ -16,9 +16,10 @@ class EditTask : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        //added from last git save
         binding = ActivityEditTask2Binding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
 
     }

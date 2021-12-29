@@ -1,13 +1,8 @@
 package com.example.simpletodo
 
 import android.os.Bundle
-import android.util.Log
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.simpletodo.databinding.ActivityEditTask2Binding
@@ -31,24 +26,25 @@ class EditTask : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        //saveItems()
 
 
-        loadItems()
+        loadItem()
+
+        //access passed data
+        val needToEdit = getIntent().getIntExtra("position",0)
 
         //Look up recycler View in layout
         val recyclerView = findViewById<RecyclerView>(R.id.EditRecyclerView)
         //Create adapter passing in sample user data
-        adapter = EditTaskAdapter(editTask)
+        adapter = EditTaskAdapter(mutableListOf(editTask.get(needToEdit)))
         //Attach adapter to recycler view to populate items
         recyclerView.adapter = adapter
         // Set layout manager to position the items
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        //access passed data
-        val needToEdit = getIntent().getStringExtra("position").toString()
+
         //retrieve the data and put into edit task list
-        editTask.add(needToEdit)
+        //editTask.add(needToEdit)
 
         //Once there's an update ot the list, notify the adapter
         adapter.notifyItemInserted(editTask.size - 1)
@@ -63,10 +59,11 @@ class EditTask : AppCompatActivity() {
         return File(filesDir, "data.txt")
     }
 
-    //Read every line in the data file to load
-    fun loadItems() {
+    //Read only the line in the data file to load
+    fun loadItem() {
         try {
             editTask = FileUtils.readLines(getDataFile(), Charset.defaultCharset())
+
         } catch (ioException: IOException) {
             ioException.printStackTrace()
 
@@ -74,7 +71,7 @@ class EditTask : AppCompatActivity() {
 
     }
 
-    //Write the items into data file to save
+    //DO I NEED TO Write the items into data file to save?
     fun saveItems() {
         try {
             FileUtils.writeLines(getDataFile(), editTask)

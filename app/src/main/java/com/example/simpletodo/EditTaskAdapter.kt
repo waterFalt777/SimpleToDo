@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
  * A knockoff bridge that scripts the recycler how to
  * display the PASSED data we provide with it by Intent
  */
-class EditTaskAdapter (val editTask: List<String>):
+class EditTaskAdapter(val editTask: MutableList<String>):
 
     RecyclerView.Adapter<EditTaskAdapter.ViewHolder>() {
 

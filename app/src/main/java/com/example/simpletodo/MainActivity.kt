@@ -24,9 +24,11 @@ class MainActivity : AppCompatActivity() {
 
     fun onClickNext(position: Int) { //view:View
         val i = Intent(this,EditTask::class.java)
-        //i.putExtra("position", position)
+        i.putExtra("position",position)
         startActivity(i)
     }
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

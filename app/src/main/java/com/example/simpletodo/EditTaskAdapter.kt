@@ -8,8 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 /**
- * A knockoff bridge that scripts the recycler how to
- * display the PASSED data we provide with it by Intent
+ * Bridges the main activity with the edit activity
  */
 class EditTaskAdapter(val editTask: MutableList<String>):
 

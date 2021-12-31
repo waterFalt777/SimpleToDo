@@ -1,10 +1,13 @@
 package com.example.simpletodo
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 //import com.example.simpletodo.TaskItemAdapter.OnClickListener
@@ -15,18 +18,47 @@ import java.nio.charset.Charset
 import android.content.Intent as Intent
 
 
+
 class MainActivity : AppCompatActivity() {
     //add a variable list to hold all the task
     var listOfTasks = mutableListOf<String>()
     lateinit var adapter: TaskItemAdapter
 
 
+    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            //current text
+            var curr = data?.getStringExtra("keytext").toString()
+            //current position of text
+            var cpos = data?.getIntExtra("position", 0)!!
+            //change the old task to the current task using its position
+            listOfTasks.set(cpos, curr)
+            //update the display
+            adapter.notifyItemChanged(cpos)
+            saveItems()
+
+        }
+    }
 
     fun onClickNext(position: Int) { //view:View
+        //resultLauncher.launch(Intent(this, EditTask::class.java))
         val i = Intent(this,EditTask::class.java)
-        //i.putExtra("position", position)
-        startActivity(i)
+        //pass the position of the task clicked
+        i.putExtra("position",position)
+        //pass the text clicked from the task lists
+        i.putExtra("keytext", listOfTasks.get(position))
+        //launches the edit acitivity
+        resultLauncher.launch(i)
+
+
+
     }
+
+
+
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,19 +87,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-
-
-
-
-//        //1. Detect when user clicks on add button
-//        findViewById<Button>(R.id.button).setOnClickListener {
-//            Log.i("HEY", "DONT GO TOUCHING BUTTONS")
 //
-//        }
-//        listOfTasks.add("Do laundry")
-//        listOfTasks.add("Go for a walk")
-//        listOfTasks.add("Karaoke in the Park")
 
 
 

@@ -36,6 +36,10 @@ Here's a walkthrough of the SimpleToDo Task App:
 ## App State Persists
 <img src='Persist.gif' title='App State Persists' width='' alt='App State Persists' />
 
+## Edit Tasks
+
+<img src='EditTask.gif' title='Edit Tasks' width='' alt=' Edit Tasks' />
+
 
 GIF created with Gyazo.
 

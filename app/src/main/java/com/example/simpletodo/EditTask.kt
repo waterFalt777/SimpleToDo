@@ -22,7 +22,7 @@ import java.nio.charset.Charset
  */
 class EditTask : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
+
     private lateinit var binding: ActivityEditTask2Binding
 
 
@@ -49,14 +49,27 @@ class EditTask : AppCompatActivity() {
             Log.i("Ed clicked", "Edit button has been clicked")
 
             val intent = Intent(this, MainActivity::class.java)
-            //convert the edited text from a bitmap or char array to string
-            intent.putExtra("keytext", edit.text.toString())
+
+
+
+            //if user doesn't make any changes, pass in the prev word
+            if (edit.text.toString() == "") {
+                Log.i("IF", "Keeping prev word")
+                intent.putExtra("keytext", prev)
+
+            }
+            else {
+                //convert the edited text from a bitmap or char array to string
+                intent.putExtra("keytext", edit.text.toString())
+            }
+
             //pass the edited text
             getIntent().extras?.let { it1 -> intent.putExtra("position", it1.getInt("position")) }
             setResult(Activity.RESULT_OK, intent)
             //end the second activity
             finish()
         })
+
 
 
 
